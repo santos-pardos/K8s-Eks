@@ -1,3 +1,34 @@
+# Install Eksctl & Kubectl TOOLS (Linux)
+```
+AWS Tools (in Cloud9 you dont need to install AWS Tools) 
+aws --version
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+which aws 
+./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws-cli --update 
+aws --version
+```
+# Install KUBECTL 
+```
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl
+chmod +x ./kubectl 
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin 
+kubectl version --client
+```
+# Install EKSCTL 
+```
+ARCH=amd64
+(for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`)
+PLATFORM=$(uname -s)_$ARCH
+curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version 
+eksctl help
+eksctl get cluster
+aws eks update-kubeconfig --name demo-cluster --region us-east-1
+```
+
 # Dockers and K8s examples
 
 https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/02-PODs-with-kubectl
