@@ -72,5 +72,65 @@ kubectl run -i --rm --tty debug --image=busybox -- sh
 kubectl run -i --tty utils --image=arunvelsriram/utils --restart=Never -- sh
 sudo amazon-linux-extras install epel -y
 sudo yum install stress -y
+```
 
+## Quick Example
+```
+wget https://s3.eu-west-1.amazonaws.com/www.profesantos.cloud/code/EKS-SVCs-Deployments.zip
+(wget https://unir-profesantos.s3.eu-west-1.amazonaws.com/K8s-Basics-Deployments.zip)
+cd Course_EKS-Basics/
+cat nginx-deployment.yaml
+cat nginx-svc.yaml
+kubectl apply -f ./nginx-svc.yaml
+kubectl get service
+"xxxxxxxxx.us-east-1.elb.amazonaws.com"
+curl "a06d451f9de2b4dceb100a6fflcb15c2-1122912181.us-east-1.elb.amazonaws.com"
+kubectl apply -f ./nginx-deployment.yaml
+kubectl get deployment
+kubectl get pods
+kubectl get rs
+kubectl get node
+kubectl get service
+kubectl get replicaset
+kubectl get node
+kubectl get namespaces
+kubectl get all --all-namespaces
+kubectl get pod
+kubectl -n kube-system get all
+kubectl -n kube-system get pods
+kubectl run nginx --image=nginx
+kubectl port-forward my-service 8000:80
+kubectl exec -it tetris-86cd7c55c7-8mwtd -- /bin/bash
+kubectl exec -ti worker-hello-5bfdf775d7-46f2g sh
+aws eks list-clusters
+aws eks describe-cluster --name
+kubectl cluster-info
+kubectl scale deployment ecsdemo-nodejs --replicas=3
+kubectl scale deployment ecsdemo-crystal --replicas=3
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+kubectl config set-context --current --namespace=default
+kubectl get pods --all-namespaces
+kubectl delete pod two-containers
+kubectl delete deployment two-containers
+eksctl delete cluster dev-cluster
+Logs
+kubectl describe pod xxxxxxx
+docker inspect santospardos/sanvalero:azuresql
+kubectl logs -f deploy/mssql-sample-deployment
+kubectl exec -it pod/mssql-deployment-7f55b56bc9-l5gn9 /bin/bash
+```
+## Links
+https://www.bluematador.com/learn/kubectl-cheatsheet
 
+## Microservices Example
+https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
+
+## Error loggin server
+```
+Edit the file: $ cat ~/.aws/credentials
+Remove the token and the region lines (left only these)
+[default]
+aws_access_key_id = AKIA2HW7LBNS5
+aws_secret_access_key = 9phAAEUyPr1mmlZTqjiWBpu5ynkp3b
+```
