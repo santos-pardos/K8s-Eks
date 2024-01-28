@@ -126,7 +126,7 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ## Microservices Example
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
 
-## Error loggin server
+## Error loggin server in AWS Academy
 ```
 Edit the file: $ cat ~/.aws/credentials
 Remove the token and the region lines (left only these)
