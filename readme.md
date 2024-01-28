@@ -124,17 +124,17 @@ kubectl exec -it pod/mssql-deployment-7f55b56bc9-l5gn9 /bin/bash
 https://www.bluematador.com/learn/kubectl-cheatsheet
 
 ## Tools
+```
 docker run -it --network todo-app nicolaka/netshoot
-
+kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
-
-kubectl exec pod/aspnetapp-54f446979d-ktnv7 -it /bin/bash
-
+kub
 kubectl get pod -o wide
-
+```
 ## Microservices Example
+```
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
-
+```
 ## Error loggin server in AWS Academy
 ```
 Edit the file: $ cat ~/.aws/credentials
