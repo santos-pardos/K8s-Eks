@@ -11,6 +11,7 @@ export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw
 echo $ARGOCD_SERVER
 export ARGO_PWD=`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
 echo $ARGO_PWD
+(user argocd= admin)
 
 Repositories : git - default  - https://github.com/santos-pardos/Tetris-Game.git and Connect
 New App; tetris - default - Automatic - https://github.com/santos-pardos/Tetris-Game.git - manifests  - https://Kubernetes.default.svc - default - Create
