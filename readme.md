@@ -123,6 +123,9 @@ kubectl exec -it pod/mssql-deployment-7f55b56bc9-l5gn9 /bin/bash
 ## Links
 https://www.bluematador.com/learn/kubectl-cheatsheet
 
+## Tools
+docker run -it --network todo-app nicolaka/netshoot
+
 ## Microservices Example
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
 
