@@ -126,6 +126,8 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ## Tools
 docker run -it --network todo-app nicolaka/netshoot
 
+https://github.com/nicolaka/netshoot
+
 kubectl exec pod/aspnetapp-54f446979d-ktnv7 -it /bin/bash
 
 kubectl get pod -o wide
