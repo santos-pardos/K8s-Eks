@@ -126,6 +126,8 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ## Tools
 docker run -it --network todo-app nicolaka/netshoot
 
+kubectl exec pod/aspnetapp-54f446979d-ktnv7 -it /bin/bash
+
 ## Microservices Example
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
 
