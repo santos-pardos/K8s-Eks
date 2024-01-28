@@ -1,4 +1,4 @@
-# Install Eksctl & Kubectl TOOLS (Linux)
+# Install AWS Tools
 ```
 AWS Tools (in Cloud9 you dont need to install AWS Tools) 
 aws --version
