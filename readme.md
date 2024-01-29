@@ -131,6 +131,8 @@ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
 kub
 kubectl get pod -o wide
+kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
+(nc mysql-service 3306) 
 ```
 ## Microservices Example
 ```
