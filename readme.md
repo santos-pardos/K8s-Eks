@@ -133,6 +133,7 @@ kub
 kubectl get pod -o wide
 kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
 nc -vz mysql-service 3306 (mysql-service external RDS)
+(https://dev.to/bensooraj/accessing-amazon-rds-from-aws-eks-2pc3)
 docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
 ## Microservices Example
