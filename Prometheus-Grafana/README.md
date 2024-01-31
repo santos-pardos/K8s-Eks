@@ -1,10 +1,14 @@
 ## Install Helm
+'''
 curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm version --short
+'''
 # add prometheus Helm repo
+'''
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-
+'''
 # add grafana Helm repo
+'''
 helm repo add grafana https://grafana.github.io/helm-charts
 
 kubectl create namespace prometheus
@@ -81,8 +85,10 @@ Enter Kubernetes Pods Monitoring as the Dashboard name.
 Click change to set the Unique identifier (uid).
 Select ‘Prometheus’ as the endpoint under prometheus data sources drop down.s
 Click ‘Import’.
+'''
 
 ## Uninstall
+'''
 helm uninstall prometheus --namespace prometheus
 kubectl delete ns prometheus
 
@@ -90,3 +96,9 @@ helm uninstall grafana --namespace grafana
 kubectl delete ns grafana
 
 rm -rf ${HOME}/environment/grafana
+'''
+
+## Links
+'''
+https://archive.eksworkshop.com/intermediate/240_monitoring/
+'''
