@@ -1,4 +1,4 @@
-# Install AWS Tools
+## Install AWS Tools
 ```
 AWS Tools (in Cloud9 you dont need to install AWS Tools) 
 aws --version
@@ -8,7 +8,7 @@ which aws
 ./aws/install --bin-dir /usr/bin --install-dir /usr/bin/aws-cli --update 
 aws --version
 ```
-# Install KUBECTL 
+## Install KUBECTL 
 ```
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl
 chmod +x ./kubectl 
@@ -27,12 +27,20 @@ eksctl version
 eksctl get cluster
 aws eks update-kubeconfig --name demo-cluster --region us-east-1
 ```
+## Install Docker-Compose
+```
+sudo dnf -y install wget
+sudo curl -s https://api.github.com/repos/docker/compose/releases/latest | grep browser_download_url | grep docker-compose-linux-x86_64 | cut -d '"' -f 4 | wget -qi -
+sudo chmod +x docker-compose-linux-x86_64
+sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
+docker-compose --version
+```
 ## Install Helm
 ```
 curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm version --short
 ```
-# Links and commands
+## Links and commands
 ```
 https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/02-PODs-with-kubectl
 https://www.stacksimplify.com/aws-eks/kubernetes-for-absolute-beginners/kubernetes-for-absolute-beginners/
