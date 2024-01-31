@@ -27,7 +27,11 @@ eksctl version
 eksctl get cluster
 aws eks update-kubeconfig --name demo-cluster --region us-east-1
 ```
-
+## Install Helm
+```
+curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+helm version --short
+```
 # Links and commands
 ```
 https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/02-PODs-with-kubectl
