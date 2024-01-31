@@ -3,14 +3,16 @@
 curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm version --short
 ```
-# add prometheus Helm repo
+# Add prometheus Helm repo
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
-# add grafana Helm repo
+# Add grafana Helm repo
 ```
 helm repo add grafana https://grafana.github.io/helm-charts
-
+```
+# Install Prometheus and Grafana
+```
 kubectl create namespace prometheus
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
