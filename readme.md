@@ -142,6 +142,7 @@ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
 kubectl get pod -o wide
 kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
+kubectl run -i --tty --rm debug --image=nicolaka/netshoot --restart=Never -- sh
 nc -vz mysql-service 3306 (mysql-service external RDS)
 (https://dev.to/bensooraj/accessing-amazon-rds-from-aws-eks-2pc3)
 docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
