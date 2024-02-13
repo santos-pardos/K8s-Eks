@@ -141,7 +141,7 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ```
 ## Tools
 ```
-docker run -it --network todo-app nicolaka/netshoot
+docker run -it  nicolaka/netshoot sh
 kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
 kubectl get pod -o wide
