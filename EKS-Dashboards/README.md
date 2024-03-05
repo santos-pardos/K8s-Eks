@@ -7,6 +7,7 @@ A configured kubeconfig file that points to the correct Amazon EKS cluster. For 
 Deploy the Kubernetes Dashboard
 To deploy the Kubernetes Dashboard on the Amazon EKS cluster, run the following command:
 ```
+```
 export DASHBOARD_VERSION="v2.7.0"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/${DASHBOARD_VERSION}/aio/deploy/recommended.yaml
 ```
