@@ -25,13 +25,15 @@ Route all requests from the Amazon EC2 instance's local port to the Kubernetes D
 ```
 kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8080:443 --address Amazon_EC2_Private_IP
 ```
-
+```
 Note: Replace the Amazon_EC2_Private_IP with your Amazon EC2 instance's private IP address.
 Access the Kubernetes Dashboard through the following address: https://Amazon_EC2_Public_IP:8080.
 When prompted, enter a token or kubeconfig file.
 To get a bearer token for authentication on the Kubernetes Dashboard login page, run the following command from your local computer terminal:
 ```
+```
 aws eks get-token --cluster-name ClusterName --region Region | jq -r '.status.token'
+```
 ```
 Note: Replace the ClusterName and Region with your cluster name and AWS Region.
 Copy the token from the terminal output.
@@ -39,3 +41,4 @@ In the browser's Kubernetes Dashboard login page pop-up window, choose Token. En
 Choose Sign in to access the Kubernetes Dashboard in your browser.
 Related information
 Kubernetes Dashboard on the GitHub website
+```
