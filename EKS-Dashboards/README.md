@@ -22,7 +22,9 @@ To access the Kubernetes Dashboard UI, complete the following steps:
 
 Route all requests from the Amazon EC2 instance's local port to the Kubernetes Dashboard service port. Run the following command to turn on port forwarding:
 ```
+```
 kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8080:443 --address Amazon_EC2_Private_IP
+```
 ```
 ```
 Note: Replace the Amazon_EC2_Private_IP with your Amazon EC2 instance's private IP address.
