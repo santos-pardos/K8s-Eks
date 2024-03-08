@@ -141,7 +141,7 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ```
 ## Tools
 ```
-docker run --name cloudbeaver-ee --rm -ti -d -p 8080:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver-ee:latest
+docker run --name cloudbeaver-ee --rm -ti -d -p 8080:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
 docker run -it  nicolaka/netshoot sh
 kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
