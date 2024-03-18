@@ -16,3 +16,12 @@ env | grep <envfilename>
 #  Consuming Secret values from volumes.
 kubectl create -f <volumefilename.yaml>
 kubectl exec -it <podname> -- sh
+
+# Links
+```
+https://howtoforge.es/trabajos-en-kubernetes/
+https://loft.sh/blog/kubernetes-statefulset-examples-and-best-practices/
+https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo9/jobs.md
+https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo9/statefulsets.md
+https://github.com/collabnix/kubelabs/tree/master/Jobs101
+```
