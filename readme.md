@@ -32,7 +32,6 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 ```
-```
 eksctl get cluster
 ```
 ```
