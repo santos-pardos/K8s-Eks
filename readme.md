@@ -32,7 +32,10 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 ```
+```
 eksctl get cluster
+```
+```
 aws eks update-kubeconfig --name demo-cluster --region us-east-1
 ```
 ## Install Docker-Compose
