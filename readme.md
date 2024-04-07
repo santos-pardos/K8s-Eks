@@ -22,8 +22,10 @@ kubectl version --client
 ```
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
+```
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+```
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
@@ -34,9 +36,15 @@ aws eks update-kubeconfig --name demo-cluster --region us-east-1
 ## Install Docker-Compose
 ```
 sudo dnf -y install wget
+```
+```
 sudo curl -s https://api.github.com/repos/docker/compose/releases/latest | grep browser_download_url | grep docker-compose-linux-x86_64 | cut -d '"' -f 4 | wget -qi -
+```
+```
 sudo chmod +x docker-compose-linux-x86_64
 sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
+```
+```
 docker-compose --version
 ```
 ## Install Helm
@@ -141,7 +149,7 @@ https://www.bluematador.com/learn/kubectl-cheatsheet
 ```
 ## Tools
 ```
-docker run --name cloudbeaver-ee --rm -ti -d -p 8080:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
+docker run --name cloudbeaver --rm -ti -d -p 8080:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
 docker run -it  nicolaka/netshoot sh
 kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 https://github.com/nicolaka/netshoot
