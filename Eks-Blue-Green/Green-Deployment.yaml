@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: myapp
+      env: green
+  template:
+    metadata:
+      labels:
+        app: myapp
+        env: green
+    spec:
+      containers:
+      - name: myapp
+        image: santospardos/sanvalero:tetrisv2
+        ports:
+        - containerPort: 80
