@@ -26,9 +26,9 @@ PLATFORM=$(uname -s)_$ARCH
 ```
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
-```
-```
 sudo mv /tmp/eksctl /usr/local/bin
+```
+```
 eksctl version
 ```
 ```
@@ -46,6 +46,8 @@ sudo curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 
 ```
 ```
 sudo chmod +x docker-compose-linux-x86_64
+```
+```
 sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
 ```
 ```
