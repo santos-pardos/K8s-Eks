@@ -1,6 +1,8 @@
 ## Link
+```
 https://amod-kadam.medium.com/setting-up-nginx-ingress-controller-with-eks-f27390bcf804
-
+https://github.com/AliyunContainerService/serverless-k8s-examples/tree/master/ingress-nginx
+```
 
 ## Install SSL, Helm, Ingress Controller
 ```
