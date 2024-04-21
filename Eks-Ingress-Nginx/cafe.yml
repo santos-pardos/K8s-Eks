@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: coffee
-        image: santospardos/unir:octupus
+        image: santospardos/sanvalero:tetrisv1
         ports:
         - containerPort: 80
 ---
