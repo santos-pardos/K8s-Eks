@@ -11,7 +11,7 @@ kubectl apply -f api-deployment.yaml
 kubectl apply -f api-service.yaml
 ```
 ```
-curl -X POST -H 'Content-Type: application/json' -d @body.json http://54.146.232.28:31231/usermgmt/user
+curl -X POST -H 'Content-Type: application/json' -d @body.json http://public-ip-node-service:31231/usermgmt/user
 ```
 ## Links
 ```
