@@ -42,3 +42,6 @@ Choose Sign in to access the Kubernetes Dashboard in your browser.
 Related information
 Kubernetes Dashboard on the GitHub website
 ```
+
+## Links
+https://repost.aws/knowledge-center/eks-cluster-kubernetes-dashboard
