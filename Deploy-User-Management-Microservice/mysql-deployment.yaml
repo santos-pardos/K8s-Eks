@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: dev
+spec:
+  # maintain just 1 replica of a pod
+  replicas: 1
+  strategy:
+    # if we upgrade the pod, the old one will be first dropped
+    # and afterwards a new one will spin up
+    type: Recreate
+  selector:
+    # deployment will be responsible for the pods 
+    # with the labels app-mysql
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      # lables attached to the actual pod
+      # should correspond to the one deployment specifies
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.6
+          ports:
+            - containerPort: 3306
+              name: mysql
+          # actual place within the file system of a pod
+          # where we bind our volumes
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: usermgmt-dbcreation-script
+              mountPath: /docker-entrypoint-initdb.d
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                # value of password is a sensitive info
+                # so it can't be stored in ConfigMap
+                # we utilize another k8s resource - Secret
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-db-password
+      # we list volumes that our pod will require
+      volumes:
+          # first is a request for the actual storage of a DB data
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: ebs-mysql-pv-claim
+          # second is the SQL-script we need to execute on a startup
+          # that's stored in ConfigMap
+        - name: usermgmt-dbcreation-script
+          configMap:
+            name: usermanagement-dbcreation-script

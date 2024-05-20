@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com # AWS EBS provision our persistent storage
+volumeBindingMode: WaitForFirstConsumer # k8s won't allocate any volume unless there's a container that claims it

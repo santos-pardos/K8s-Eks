@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-mysql-pv-claim
+  namespace: dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc # refer to the StorageClass we created previously
+  resources:
+    requests:
+      storage: 4Gi # specify the amount of volume we need

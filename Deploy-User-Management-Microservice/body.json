@@ -1,0 +1,9 @@
+    {
+        "username": "admin1",
+        "email": "dkalyanreddy@gmail.com",
+        "role": "ROLE_ADMIN",
+        "enabled": true,
+        "firstname": "fname1",
+        "lastname": "lname1",
+        "password": "Pass@123"
+    }

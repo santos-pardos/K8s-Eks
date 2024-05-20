@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: usermanagement-dbcreation-script
+  namespace: dev
+data:
+  # this is gonna be a SQL-script that will configure our MySQL DB on the start.
+  mysql_usermgmt.sql: |-
+    DROP DATABASE IF EXISTS usermgmt;
+    CREATE DATABASE usermgmt;

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: default-cpu-mem-limit-range
+  namespace: dev
+spec:
+  limits:
+    # every pod (container) in dev namespace won't consume more than this
+    - default:
+        memory: 512Mi
+        cpu: 500m
+      # every pod (container) in dev namespace allocate at least this amount memory and cpu
+      defaultRequest:
+        memory: 256Mi
+        cpu: 250m
+      type: Container
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: ns-resource-quota
+  namespace: dev
+spec:
+  # namespace will take minimum of 1 vCPU and 1Gi of RAM
+  # and won't consume more than 2 vCPUs and 2Gi of RAM.
+  # We also specify the limits on number of particular k8s resources
+  # that can be deployed in dev namespace
+  hard:
+    limits.cpu: 2
+    limits.memory: 2Gi
+    requests.cpu: 1 
+    requests.memory: 1Gi
+    pods: 5
+    configmaps: 5
+    services: 5
+    secrets: 5
+    persistentvolumeclaims: 5

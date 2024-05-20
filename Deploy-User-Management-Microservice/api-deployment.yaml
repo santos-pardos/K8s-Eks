@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usermgmt
+  namespace: dev
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: usermgmt
+  template:
+    metadata:
+      labels:
+        app: usermgmt
+    spec:
+      # specify container that spin up first before our main app process
+      # it'll run in a loop checking the availability of a MySQL deployment
+      # once MySQL respond back, we stop the init container and start the main one
+      # this used to prevent unnecessary pod restarts, when depended pod isn't up yet
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";'] 
+      containers:
+        - name: usermgmt
+          image: stacksimplify/kube-usermanagement-microservice:1.0.0
+          # bunch of env vars that aren't directly specified here
+          # but actually stored in a secret and referenced here
+          env:
+            - name: DB_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-db-hostname
+
+            - name: DB_PORT
+              value: "3306" 
+
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-db-name    
+
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-db-user     
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-db-password
+
+          ports:
+            - containerPort: 8095
+          # once 60 seconds after the start of a container passes we run 
+          # a check every 10 seconds to make sure the process is up and running
+          # without being stuck in any kind of a deadlock
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - nc -z localhost 8095
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          # this check that process is not only up and running
+          # but also accepts the HTTP traffic
+          readinessProbe:
+            httpGet:
+              path: /usermgmt/health-status
+              port: 8095
+            initialDelaySeconds: 60
+            periodSeconds: 10
