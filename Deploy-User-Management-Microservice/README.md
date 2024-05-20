@@ -1,5 +1,16 @@
 ## Practical Kubernetes. Deploy User Management Microservice
 ```
+kubectl apply -f namespace.yaml
+kubectl apply -f storage.yaml
+kubectl apply -f pvc.yaml
+kubectl apply -f configmap.yaml
+kubectl apply -f secrets.yaml
+kubectl apply -f mysql-deployment.yaml
+kubectl apply -f mysql-service.yaml
+kubectl apply -f api-deployment.yaml
+kubectl apply -f api-service.yaml
+```
+```
 curl -X POST -H 'Content-Type: application/json' -d @body.json http://54.146.232.28:31231/usermgmt/user
 ```
 ## Links
