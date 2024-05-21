@@ -70,6 +70,7 @@ helm version --short
 ```
 ## Links and commands
 ```
+https://geekflare.com/es/kubectl-examples/
 https://github.com/stacksimplify/kubernetes-fundamentals/tree/master/02-PODs-with-kubectl
 https://www.stacksimplify.com/aws-eks/kubernetes-for-absolute-beginners/kubernetes-for-absolute-beginners/
 ```
