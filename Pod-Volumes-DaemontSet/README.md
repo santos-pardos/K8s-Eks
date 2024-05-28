@@ -1,3 +1,18 @@
+## DaemontSet
+kubectl apply -f daemontset-fluent.yaml
+kubectl describe daemonset fluentd
+kubectl get pods -l app=fluentd -o wide
+kubectl label nodes xxxxAWSNODEXXX ssd="true"
+kubectl get nodes --selector ssd="true"
+kubectl delete daemonset fluentd
+kubectl apply -f daemontset-fluent-ssd.yaml
+kubectl get pods -l app=fluentd -o wide
+kubectl apply -f daemontset-fluent-rolling.yaml
+kubectl rollout status ds/fluentd
+https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
+https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
+
+
 ## Configmaps
 kubectl create cm mariadb --from-literal=root_password=my-password --from-literal=mysql_usuario=usuario --from-literal=mysql_password=password-user --from-literal=basededatos=test
 
