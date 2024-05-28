@@ -1,4 +1,8 @@
 ## Links
+```
+https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo4/describiendo_replicaset.md
+```
+
 https://kubernetes.io/es/docs/concepts/workloads/controllers/replicaset/
 
 https://kubernetes.io/es/docs/concepts/workloads/controllers/daemonset/
