@@ -13,6 +13,7 @@ https://medium.com/techlogs/kubernetes-different-ways-of-exposing-a-service-by-a
 
 https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
 
+
 EKS Courses
 
 https://www.devopsschool.com/blog/explained-kubernetes-daemonset-with-example/
