@@ -1,3 +1,17 @@
+## Replicaset
+```
+kubectl apply -f nginx-rs.yaml
+kubectl get rs,pods
+kubectl describe rs replicaset-nginx
+kubectl delete pod <nombre_del_pod>
+kubectl get pods
+kubectl scale rs replicaset-nginx --replicas=5
+kubectl get pods
+kubectl apply -f nginx-rs.yaml
+kubectl scale rs replicaset-nginx --replicas=1
+kubectl delete rs replicaset-nginx
+kubectl delete -f nginx-rs.yaml
+```
 ## Links
 ```
 https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo4/describiendo_replicaset.md
