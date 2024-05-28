@@ -11,6 +11,7 @@ https://www.airplane.dev/blog/kubectl-port-forward
 
 https://medium.com/techlogs/kubernetes-different-ways-of-exposing-a-service-by-an-example-b81646d20cba
 
+https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
 
 EKS Courses
 
