@@ -13,7 +13,6 @@ kubectl rollout status ds/fluentd
 ```
 ```
 https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
-https://imaginaformacion.com/tutoriales/guia-completa-de-daemonset-en-kubernetes
 ```
 
 ## Configmaps
