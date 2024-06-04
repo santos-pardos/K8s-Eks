@@ -5,6 +5,7 @@ kubectl describe daemonset fluentd
 kubectl get pods -l app=fluentd -o wide
 kubectl label nodes xxxxAWSNODEXXX ssd="true"
 kubectl get nodes --selector ssd="true"
+kubectldescribe node xxxxAWSNODEZZZZ
 kubectl delete daemonset fluentd
 kubectl apply -f daemontset-fluent-ssd.yaml
 kubectl get pods -l app=fluentd -o wide
