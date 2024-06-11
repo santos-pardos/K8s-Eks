@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: temperaturas-srv
+  labels: 
+    app: temperaturas
+spec:
+  type: LoadBalancer
+  selector:
+    app: temperaturas
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
