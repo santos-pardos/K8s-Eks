@@ -43,3 +43,20 @@ helm uninstall ingress-nginx -n ingress-nginx
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace \
   --set-string controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"="nlb"
 ```
+
+### Install Uninstall Nginx-Controller
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx \
+    --version 4.2.3 \
+    --namespace kube-system \
+    --set controller.service.type=ClusterIP
+kubectl -n kube-system rollout status deployment ingress-nginx-controller
+kubectl get deployment -n kube-system ingress-nginx-controller
+```
+
+```
+helm uninstall -n kube-system ingress-nginx
+helm uninstall -n kube-system aws-load-balancer-controller
+```
+
