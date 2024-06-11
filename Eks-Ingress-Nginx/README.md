@@ -6,7 +6,7 @@ https://aws.amazon.com/es/blogs/containers/exposing-kubernetes-applications-part
 https://www.youtube.com/watch?v=gvKi7wZHbLU
 https://kubernetes.github.io/ingress-nginx/deploy/
 https://blog.saeloun.com/2023/03/21/setup-nginx-ingress-aws-eks/
-
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-with-cert-manager-on-digitalocean-kubernetes
 ```
 
 ## Install SSL, Helm, Ingress Controller
