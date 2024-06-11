@@ -5,6 +5,7 @@ https://github.com/AliyunContainerService/serverless-k8s-examples/tree/master/in
 https://aws.amazon.com/es/blogs/containers/exposing-kubernetes-applications-part-3-nginx-ingress-controller/
 https://www.youtube.com/watch?v=gvKi7wZHbLU
 https://kubernetes.github.io/ingress-nginx/deploy/
+https://blog.saeloun.com/2023/03/21/setup-nginx-ingress-aws-eks/
 
 ```
 
