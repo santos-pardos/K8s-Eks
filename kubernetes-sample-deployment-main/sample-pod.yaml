@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: sampleweb
+  labels:
+    tier: frontend
+spec:
+  containers:
+  - name: sampleweb
+    image: nikhilnidhi/samplewebapp

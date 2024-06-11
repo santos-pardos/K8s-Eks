@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend-application
+  namespace: services
+  labels:
+    application: frontend
+spec:
+  replicas: 5
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      application: frontend
+  template:
+     metadata:
+      labels:
+         application: frontend
+     spec:
+       containers:
+       - name: apache-container
+         image: httpd
+         env:
+         - name: BACKEND_SERVICE_IP
+           value: "10.35.250.133" #clusterip
+         - name: BACKEND_PORT
+           value: "80"
+  

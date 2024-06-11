@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: config-map-mount
+spec:
+  containers:
+  - name: container-1
+    image: busybox
+    command: ["/bin/sh","-c","ls /etc/config/"]
+    volumeMounts:
+     - name: config-volume
+       mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: file-map
+  restartPolicy: Never
+          

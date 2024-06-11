@@ -1,0 +1,9 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-name
+  namespace: kube-public
+spec:
+  containers:
+  - name: container-1
+    image: nginx

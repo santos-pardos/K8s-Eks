@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-matching-rs
+  labels:
+    environment: production
+spec:
+  containers:
+  - name: first-container
+    image: nginx

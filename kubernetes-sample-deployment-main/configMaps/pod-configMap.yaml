@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-config-map
+spec:
+  containers:
+  - name: container-1
+    image: busybox
+    command: ["/bin/sh","-c","env"]
+    envFrom:
+    - configMapRef:
+          name: map1

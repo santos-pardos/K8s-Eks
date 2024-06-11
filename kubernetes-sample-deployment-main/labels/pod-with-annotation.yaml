@@ -1,0 +1,11 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-with-annotation
+  annotation:
+    commit-message: testing for nginx
+    owner: Nidhi
+spec:
+  containers:
+  - name: first-container
+    image: nginx
