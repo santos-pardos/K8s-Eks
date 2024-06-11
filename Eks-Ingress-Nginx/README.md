@@ -4,6 +4,7 @@ https://amod-kadam.medium.com/setting-up-nginx-ingress-controller-with-eks-f2739
 https://github.com/AliyunContainerService/serverless-k8s-examples/tree/master/ingress-nginx
 https://aws.amazon.com/es/blogs/containers/exposing-kubernetes-applications-part-3-nginx-ingress-controller/
 https://www.youtube.com/watch?v=gvKi7wZHbLU
+https://kubernetes.github.io/ingress-nginx/deploy/
 
 ```
 
