@@ -50,3 +50,6 @@ kubectl exec -it busybox  touch /mydata/test.txt
 
 ## Link
 https://www.devopsworld.co.in/p/kubernetes-volumes-emptydirhostpath.html
+https://loft.sh/blog/kubernetes-persistent-volumes-examples-and-best-practices/
+https://medium.com/@dipali26N/day-28-kubernetes-volumes-creating-emptydir-volume-and-hostpath-types-603cb501dd21
+https://www.devopsworld.co.in/p/kubernetes-tutorials.html
