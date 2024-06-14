@@ -55,3 +55,5 @@ https://medium.com/@dipali26N/day-28-kubernetes-volumes-creating-emptydir-volume
 https://www.devopsworld.co.in/p/kubernetes-tutorials.html
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
 https://docs.openshift.com/container-platform/4.8/storage/persistent_storage/persistent-storage-hostpath.html
+https://k21academy.com/docker-kubernetes/kubernetes-persistent-storage-pv-pvc-and-storage-class/
+
