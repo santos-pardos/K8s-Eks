@@ -57,3 +57,8 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-vo
 https://docs.openshift.com/container-platform/4.8/storage/persistent_storage/persistent-storage-hostpath.html
 https://k21academy.com/docker-kubernetes/kubernetes-persistent-storage-pv-pvc-and-storage-class/
 
+## AWS EBS Link
+```
+https://docs.aws.amazon.com/es_es/eks/latest/userguide/ebs-sample-app.html
+```
+
