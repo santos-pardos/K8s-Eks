@@ -1,3 +1,6 @@
+# Storage Class
+https://www.argonaut.dev/docs/guides/migrate-eks-to-gp3
+
 # k8s-wordpress
 
 Kubernetes Wordpress Deployment
