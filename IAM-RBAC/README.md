@@ -9,6 +9,13 @@
 
  kubectl edit configmap aws-auth -n kube-system
 
+ (add the mapusers)
+ ```
+   mapUsers: |
+    - userarn: arn:aws:iam::237984217794:user/eks-developer
+      username: eks-developer
+  ```
+
 ```
 -----------
 data:
