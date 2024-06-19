@@ -42,7 +42,7 @@ kubectl get pods --as eks-developer
 
 kubectl delete  pods hello-kubernetes-75ff9bb448-hghjn --as eks-developer  
 
-## Links IAM RBAC
+## IAM RBAC
 https://www.checkmateq.com/blog/rbac-eks
 
 https://www.infracloud.io/blogs/role-based-access-kubernetes/
