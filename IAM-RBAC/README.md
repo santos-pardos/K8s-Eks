@@ -1,6 +1,12 @@
 
 ## IAM User and RBAC K8s
 
+ Create IAM User: eks-developer with access key and secret access key (no permissions)
+
+ kubectl apply -f role.yaml
+
+ kubectl apply -f rolebinding.yaml
+
  kubectl edit configmap aws-auth -n kube-system
 
 ```
