@@ -26,6 +26,7 @@ kind: ConfigMap
 ```
 
 kubectl get pods --as eks-developer
+
 kubectl delete  pods hello-kubernetes-75ff9bb448-hghjn --as eks-developer  
 
 ## Links
