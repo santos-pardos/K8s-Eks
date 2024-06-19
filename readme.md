@@ -1,6 +1,7 @@
 ## Tutorials
 ```
 https://www.devopsworld.co.in/p/kubernetes-tutorials.html
+https://github.com/antonputra/tutorials/tree/main
 ```
 ## Install AWS Tools
 ```
