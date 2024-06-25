@@ -15,4 +15,6 @@ https://docs.dennisokeeffe.com/kubernetes/eks-deploy-stateful-ebs-app#the-ebs-vo
 https://levelup.gitconnected.com/easy-baking-with-aws-eks-95554ec34755
 https://keepcoding.io/blog/que-es-statefulset-kubernetes/
 ```
-
+```
+echo "<!DOCTYPE html>\n<html>\n\t<body>\n\t\t<h1>Hello World!</h1>\n\t</body>\n</html>" > index.html
+```
