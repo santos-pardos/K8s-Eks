@@ -6,6 +6,7 @@ https://loft.sh/blog/kubernetes-statefulset-examples-and-best-practices/
 https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo9/jobs.md
 https://github.com/iesgn/curso_kubernetes_cep/blob/main/modulo9/statefulsets.md
 https://github.com/collabnix/kubelabs/tree/master/Jobs101
+https://crontab.guru/#*_/1_*_*_*
 ```
 
 ## Commands
