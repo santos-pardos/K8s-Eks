@@ -53,6 +53,9 @@ https://repost.aws/es/knowledge-center/eks-restrict-s3-bucket
 ## Secrets Manager Storage CSI Driver
 https://aws.amazon.com/es/blogs/security/how-to-use-aws-secrets-configuration-provider-with-kubernetes-secrets-store-csi-driver/
 
+## IAM OIDC
+https://www.padok.fr/en/blog/aws-eks-iam
+
 ## More Links
 https://www.argonaut.dev/docs/guides/migrate-eks-to-gp3
 
