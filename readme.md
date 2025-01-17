@@ -19,6 +19,9 @@ curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linu
 chmod +x ./kubectl 
 mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin 
 kubectl version --client
+
+aws eks update-kubeconfig --name demo-cluster --region us-east-1
+kubectl config get-clusters
 ```
 ## Install EKSCTL 
 ```
