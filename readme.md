@@ -11,6 +11,12 @@ aws eks update-kubeconfig --name demo-cluster --region us-east-1
 ```
 kubectl config get-clusters
 ```
+```
+kubectl get nodes
+```
+```
+kubectl get all 
+```
 ## Tutorials
 ```
 https://www.devopsworld.co.in/p/kubernetes-tutorials.html
