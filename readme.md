@@ -17,6 +17,10 @@ kubectl get nodes
 ```
 kubectl get all 
 ```
+## VSC Server
+```
+https://vscode.dev/tunnel/vscode-demo-tunnel
+```
 ## Tutorials
 ```
 https://www.devopsworld.co.in/p/kubernetes-tutorials.html
