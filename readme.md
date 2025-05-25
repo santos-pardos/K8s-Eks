@@ -7,6 +7,7 @@ kubectl version --client
 ```
 ```
 aws eks update-kubeconfig --name demo-cluster --region us-east-1
+kubectl config get-contexts
 ```
 ```
 kubectl config get-clusters
