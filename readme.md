@@ -201,6 +201,18 @@ nc -vz mysql-service 3306 (mysql-service external RDS)
 (https://dev.to/bensooraj/accessing-amazon-rds-from-aws-eks-2pc3)
 docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
+```
+sudo dnf install iproute-tc -y
+sudo dnf install httpd-tools -y
+tc -V
+ab -V
+which tc
+which ab
+sudo tc qdisc add dev eth0 root netem delay 100ms rate 1mbit
+sudo tc qdisc del dev eth0 root
+ab -n 1000 -c 10 http://localhost:8080/
+```
+
 ## Microservices Example
 ```
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
