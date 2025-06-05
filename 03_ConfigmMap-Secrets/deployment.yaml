@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-container
+          image: hashicorp/http-echo   # una imagen simple para pruebas
+          args:
+            - "-text=DB host: $(host), user: $(username), db: $(database)"
+          envFrom:
+            - configMapRef:
+                name: rds-config
+            - secretRef:
+                name: rds-credentials

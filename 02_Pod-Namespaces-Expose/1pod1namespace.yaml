@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: myweb 
+  namespace: demo 
+spec:
+  containers:
+    - name: myweb 
+      image: ualmtorres/myweb:v0 
