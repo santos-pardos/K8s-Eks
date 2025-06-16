@@ -1,0 +1,32 @@
+# web-hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web          # ← debe coincidir con el Deployment
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60   # objetivo: 60 % de usage/request
+  behavior:                      # (opcional) políticas de escalado fino
+    scaleUp:
+      stabilizationWindowSeconds: 0     # sin espera para subir
+      policies:
+      - type: Percent
+        value: 100                     # puede duplicar réplicas por minuto
+        periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300   # espera 5 min antes de bajar
+      policies:
+      - type: Percent
+        value: 10                      # reduce hasta un 10 % por minuto
+        periodSeconds: 60

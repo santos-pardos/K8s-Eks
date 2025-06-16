@@ -1,0 +1,39 @@
+# web-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web                 # ← el mismo nombre que usas en el HPA
+spec:
+  replicas: 2               # valor inicial; el HPA lo modificará
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: cpu-burner
+        image: progrium/stress      # imagen ligera con stress preinstalado
+        # Ejecuta indefinidamente 2 workers de CPU
+        command: ["/usr/bin/stress"]
+        args: ["--cpu", "2"]
+        resources:
+          # <---  Requests razonables para que el HPA tenga sentido
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "400m"
+---
+# (opcional) Service si quieres exponer el pod para otras pruebas
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+  - port: 80     # no se usa realmente, pero evita errores si haces kubectl port-forward
+    targetPort: 80
