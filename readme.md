@@ -87,6 +87,9 @@ sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
 ```
 docker-compose --version
 ```
+```
+docker-compose build --no-cache && docker compose up
+```
 ## Install Helm
 ```
 curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
