@@ -40,3 +40,4 @@ kubectl describe hpa web-hpa
 
 ## Links
 https://medium.com/@kanishks772/the-hidden-cost-of-idle-servers-how-to-auto-scale-smarter-not-harder-e6d6298ac9d2
+https://github.com/rahulsahay19?tab=repositories
