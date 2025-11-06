@@ -74,6 +74,8 @@ kustomize version
 ## Install Docker , Docker-Compose AMI Linux 2023
 ```
 sudo dnf install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
 sudo usermod -aG docker $USER
 (salir ssh y volver a entrar)
 ```
