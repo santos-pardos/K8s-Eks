@@ -86,6 +86,13 @@ sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
 docker-compose --version
 ```
 ```
+mkdir -p ~/.docker/cli-plugins
+curl -L https://github.com/docker/buildx/releases/download/v0.17.0/buildx-v0.17.0.linux-amd64 \
+  -o ~/.docker/cli-plugins/docker-buildx
+chmod +x ~/.docker/cli-plugins/docker-buildx
+docker buildx version
+```
+```
 docker-compose build --no-cache && docker compose up
 ```
 ## Install Helm
