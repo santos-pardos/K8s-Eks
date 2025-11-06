@@ -215,6 +215,26 @@ sudo tc qdisc add dev eth0 root netem delay 100ms rate 1mbit
 sudo tc qdisc del dev eth0 root
 ab -n 1000 -c 10 http://localhost:8080/
 ```
+```
+docker run --name cloudbeaver --rm -ti -d -p 8080:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
+```
+```
+docker run -it  nicolaka/netshoot sh
+```
+```
+kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
+```
+```
+kubectl exec -it car-web-deploy-69b77b8b8d-rztrw sh
+```
+```
+docker-compose build --no-cache --pull
+docker build --pull --no-cache --tag myimage:version .
+```
+## DBeaver
+```
+docker run -d --name cloudbeaver --rm -ti -p 80:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
+```
 
 ## Microservices Example
 ```
@@ -228,3 +248,4 @@ Remove the token and the region lines (left only these)
 aws_access_key_id = AKIA2HW7LBNS5
 aws_secret_access_key = 9phAAEUyPr1mmlZTqjiWBpu5ynkp3b
 ```
+
