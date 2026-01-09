@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-script
+  namespace: fintech-apps
+data:
+  init.sql: |
+    -- Script de inicialización para PostgreSQL
+    CREATE TABLE todos (
+        id SERIAL PRIMARY KEY,
+        task TEXT NOT NULL,
+        completed BOOLEAN DEFAULT false,
+        priority TEXT DEFAULT 'media',
+        archived BOOLEAN DEFAULT false,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        completed_at TIMESTAMP WITH TIME ZONE
+    );
+
+    -- Datos de ejemplo
+    INSERT INTO todos (task, priority, created_at) 
+    VALUES ('Optimizar Dockerfile del backend', 'alta', '2025-10-20 09:00:00+00');
+    INSERT INTO todos (task, completed, priority, created_at, completed_at) 
+    VALUES ('Configurar volumen persistente para DB', true, 'media', '2025-10-22 11:30:00+00', '2025-10-24 16:00:00+00');
+    INSERT INTO todos (task, priority, created_at, archived) 
+    VALUES ('Investigar sobre redes bridge en Docker', 'baja', '2025-10-25 08:15:00+00', true);
+    INSERT INTO todos (task, priority, created_at) 
+    VALUES ('Documentar configuración de Nginx', 'media', '2025-10-26 14:00:00+00');
+
+---
+# Servicio para exponer la base de datos internamente
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service # Debe coincidir con DB_HOST del ConfigMap
+  namespace: fintech-apps
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+# StatefulSet para PostgreSQL (con persistencia)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: fintech-apps
+spec:
+  serviceName: "postgres-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          # Carga variables desde el Secret creado en el paso 1
+          envFrom:
+            - secretRef:
+                name: db-credentials
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-script
+          configMap:
+            name: db-init-script
+  # Plantilla para solicitar disco persistente automáticamente
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

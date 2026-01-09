@@ -1,0 +1,41 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa; /* Color de fondo claro de Bootstrap */
+    min-height: 100vh;
+}
+
+/* Estilo para tareas completadas */
+.task-completed td {
+    color: #6c757d; /* color de texto 'muted' */
+}
+
+.task-completed .task-text,
+.task-completed .priority-text {
+    text-decoration: line-through;
+}
+
+/* Asegura que los botones de acción sigan siendo visibles */
+.task-completed .btn {
+    color: #6c757d;
+    border-color: #ced4da;
+}
+
+/* Mejora el hover en filas no completadas */
+tbody tr:not(.task-completed):hover {
+    background-color: #f1f3f5;
+}
+
+/* Ajustes de tamaño para inputs */
+.form-check-input {
+    min-width: 1.25rem; 
+    min-height: 1.25rem;
+    margin-top: 0.15rem; 
+    vertical-align: middle;
+}
+
+/* Ajusta los inputs en modo edición */
+.task-text input[type="text"],
+.priority-edit select {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+}

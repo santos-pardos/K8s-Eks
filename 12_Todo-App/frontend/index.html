@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App - Proyecto de Maestría</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-9 col-lg-10 col-md-11">
+                
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h1 class="text-center mb-1 fw-bold">ToDo App</h1>
+                                <p class="text-center text-muted fs-6 mb-0">
+                                    Gestión de tareas con Node.js, PostgreSQL y Nginx
+                                </p>
+                            </div>
+                            <button id="toggle-archived-btn" class="btn btn-outline-secondary">
+                                Ver Archivadas (0)
+                            </button>
+                        </div>
+                        
+                        <!-- Formulario de nueva tarea -->
+                        <form id="todo-form" class="d-flex mb-4 gap-2">
+                            <input type="text" id="todo-input" class="form-control form-control-lg" placeholder="Describe la tarea..." autocomplete="off" required>
+                            <select id="todo-priority" class="form-select form-select-lg" style="width: 150px;">
+                                <option value="media">Media</option>
+                                <option value="baja">Baja</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center" style="width: 60px;" title="Añadir Tarea">
+                                <i class="bi bi-plus-lg fs-4"></i>
+                            </button>
+                        </form>
+
+                        <!-- Tabla de tareas -->
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead id="table-header">
+                                    <tr>
+                                        <th scope="col" style="width: 5%;"></th> <!-- Checkbox -->
+                                        <th scope="col" style="width: 35%;">Tarea</th>
+                                        <th scope="col" style="width: 15%;">Prioridad</th>
+                                        <th scope="col" style="width: 20%;">Creación</th>
+                                        <th scope="col" style="width: 20%;">Finalización</th>
+                                        <th scope="col" style="width: 5%;" class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="todo-list">
+                                    <!-- Las filas de tareas se insertan aquí vía JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="empty-state" class="text-muted text-center py-4 d-none">
+                            ¡No hay tareas pendientes!
+                        </div>
+                        <div id="error-state" class="text-danger text-center py-4 d-none">
+                            Error al cargar tareas. Verifique la conexión con el backend.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Lógica de la aplicación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('todo-form');
+            const input = document.getElementById('todo-input');
+            const prioritySelect = document.getElementById('todo-priority');
+            const listBody = document.getElementById('todo-list');
+            const emptyState = document.getElementById('empty-state');
+            const errorState = document.getElementById('error-state');
+            const toggleBtn = document.getElementById('toggle-archived-btn');
+            const tableHeader = document.getElementById('table-header');
+
+            const API_URL = '/api/todos';
+            
+            let allTodos = []; // Caché local de todas las tareas
+            let showArchived = false; // Estado de la vista
+
+            /**
+             * Formatea una cadena de fecha ISO a un formato legible.
+             * @param {string | null} dateString - La fecha en formato ISO.
+             * @returns {string} - La fecha formateada o '-'.
+             */
+            function formatDate(dateString) {
+                if (!dateString) return '-';
+                const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return new Date(dateString).toLocaleDateString('es-ES', options);
+            }
+
+            /**
+             * Obtiene todas las tareas del backend y actualiza el caché local.
+             */
+            async function fetchTodos() {
+                try {
+                    const response = await fetch(API_URL);
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+                    allTodos = await response.json();
+                    renderTodos();
+                    errorState.classList.add('d-none');
+                } catch (error) {
+                    console.error('Error al cargar tareas:', error);
+                    errorState.classList.remove('d-none');
+                    emptyState.classList.add('d-none');
+                    listBody.innerHTML = '';
+                }
+            }
+            
+            /**
+             * Obtiene el color de texto de Bootstrap para la prioridad.
+             * @param {string} priority - 'alta', 'media', 'baja'.
+             * @returns {string} - Clase de color de Bootstrap.
+             */
+            function getPriorityClass(priority) {
+                switch (priority) {
+                    case 'alta': return 'text-danger';
+                    case 'media': return 'text-warning';
+                    case 'baja': return 'text-success';
+                    default: return 'text-muted';
+                }
+            }
+
+            /**
+             * Capitaliza la primera letra de una cadena.
+             * @param {string} s - La cadena.
+             * @returns {string} - La cadena capitalizada.
+             */
+            function capitalize(s) {
+                return s.charAt(0).toUpperCase() + s.slice(1);
+            }
+
+            /**
+             * Renderiza la lista de tareas (activas o archivadas) en la tabla.
+             */
+            function renderTodos() {
+                listBody.innerHTML = '';
+                
+                const filteredTodos = allTodos.filter(todo => todo.archived === showArchived);
+                const activeCount = allTodos.filter(todo => !todo.archived).length;
+                const archivedCount = allTodos.length - activeCount;
+
+                // Actualizar botón de archivados
+                toggleBtn.textContent = showArchived ? `Ver Activas (${activeCount})` : `Ver Archivadas (${archivedCount})`;
+                toggleBtn.classList.toggle('btn-primary', showArchived);
+                toggleBtn.classList.toggle('btn-outline-secondary', !showArchived);
+                
+                // Ocultar columnas irrelevantes en la vista de archivados
+                tableHeader.querySelector('th:nth-child(5)').style.display = showArchived ? 'none' : ''; // Finalización
+                
+                if (filteredTodos.length === 0) {
+                    emptyState.classList.remove('d-none');
+                    emptyState.textContent = showArchived ? 'No hay tareas archivadas.' : '¡No hay tareas pendientes!';
+                    return;
+                }
+                
+                emptyState.classList.add('d-none');
+
+                filteredTodos.forEach(todo => {
+                    const row = document.createElement('tr');
+                    row.dataset.id = todo.id;
+                    if (todo.completed) {
+                        row.classList.add('task-completed');
+                    }
+
+                    const priorityClass = getPriorityClass(todo.priority);
+                    const priorityText = capitalize(todo.priority);
+                    
+                    // Ocultar columna de finalización si está archivado
+                    const completedAtStyle = showArchived ? 'style="display: none;"' : '';
+
+                    row.innerHTML = `
+                        <td>
+                            <input class="form-check-input" type="checkbox" ${todo.completed ? 'checked' : ''} data-action="toggle-complete">
+                        </td>
+                        <td class="task-text">${todo.task}</td>
+                        <td class="priority-text ${priorityClass} fw-medium">${priorityText}</td>
+                        <td class="small">${formatDate(todo.created_at)}</td>
+                        <td class="small" ${completedAtStyle}>${formatDate(todo.completed_at)}</td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-1">
+                                <button class="btn btn-sm btn-outline-secondary" data-action="edit" title="Editar">
+                                    <i class="bi bi-pencil" data-action="edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" data-action="archive" title="${showArchived ? 'Restaurar' : 'Archivar'}">
+                                    <i class="bi ${showArchived ? 'bi-arrow-counterclockwise' : 'bi-archive'}" data-action="archive"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" data-action="delete" title="Eliminar">
+                                    <i class="bi bi-trash" data-action="delete"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    listBody.appendChild(row);
+                });
+            }
+
+            /**
+             * Convierte una fila de visualización en una fila de edición.
+             * @param {HTMLElement} row - El <tr> que se va a editar.
+             * @param {object} todo - El objeto de la tarea correspondiente.
+             */
+            function renderEditRow(row, todo) {
+                const taskCell = row.querySelector('.task-text');
+                const priorityCell = row.querySelector('.priority-text');
+                const actionsCell = row.querySelector('.text-end');
+                
+                // Guardar contenido original para cancelar
+                const originalContent = {
+                    task: taskCell.innerHTML,
+                    priority: priorityCell.innerHTML,
+                    actions: actionsCell.innerHTML
+                };
+
+                // Reemplazar Tarea con Input
+                taskCell.innerHTML = `<input type="text" class="form-control" value="${todo.task}">`;
+                
+                // Reemplazar Prioridad con Select
+                priorityCell.className = 'priority-edit'; // Quitar clases de color
+                priorityCell.innerHTML = `
+                    <select class="form-select">
+                        <option value="baja" ${todo.priority === 'baja' ? 'selected' : ''}>Baja</option>
+                        <option value="media" ${todo.priority === 'media' ? 'selected' : ''}>Media</option>
+                        <option value="alta" ${todo.priority === 'alta' ? 'selected' : ''}>Alta</option>
+                    </select>
+                `;
+
+                // Reemplazar Acciones con Guardar/Cancelar
+                actionsCell.innerHTML = `
+                    <div class="d-flex justify-content-end gap-1">
+                        <button class="btn btn-sm btn-success" data-action="save" title="Guardar">
+                            <i class="bi bi-check-lg" data-action="save"></i>
+                        </button>
+                        <button class="btn btn-sm btn-secondary" data-action="cancel" title="Cancelar">
+                            <i class="bi bi-x-lg" data-action="cancel"></i>
+                        </button>
+                    </div>
+                `;
+
+                // Manejador para Cancelar
+                actionsCell.querySelector('[data-action="cancel"]').addEventListener('click', () => {
+                    taskCell.innerHTML = originalContent.task;
+                    priorityCell.innerHTML = originalContent.priority;
+                    priorityCell.className = `priority-text ${getPriorityClass(todo.priority)} fw-medium`;
+                    actionsCell.innerHTML = originalContent.actions;
+                });
+            }
+
+            /**
+             * Manejador central de clics en la lista de tareas.
+             */
+            listBody.addEventListener('click', async (e) => {
+                const action = e.target.dataset.action;
+                if (!action) return;
+
+                const row = e.target.closest('tr');
+                const id = row.dataset.id;
+                const todo = allTodos.find(t => t.id == id);
+
+                switch (action) {
+                    case 'toggle-complete':
+                        await apiUpdate(id, { completed: !todo.completed });
+                        break;
+                    case 'archive':
+                        await apiUpdate(id, { archived: !todo.archived });
+                        break;
+                    case 'delete':
+                        if (confirm('¿Estás seguro de que quieres eliminar esta tarea permanentemente?')) {
+                            await apiDelete(id);
+                        }
+                        break;
+                    case 'edit':
+                        renderEditRow(row, todo);
+                        break;
+                    case 'save':
+                        const taskInput = row.querySelector('input[type="text"]');
+                        const priorityInput = row.querySelector('select');
+                        await apiUpdate(id, { task: taskInput.value, priority: priorityInput.value });
+                        break;
+                    // 'cancel' es manejado localmente en renderEditRow
+                }
+            });
+
+            /**
+             * Manejador del formulario para añadir nuevas tareas.
+             */
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const task = input.value.trim();
+                const priority = prioritySelect.value;
+                if (!task) {
+                    input.classList.add('is-invalid');
+                    return;
+                }
+                input.classList.remove('is-invalid');
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ task: task, priority: priority })
+                    });
+                    if (response.ok) {
+                        input.value = '';
+                        prioritySelect.value = 'media';
+                        await fetchTodos();
+                    } else {
+                        throw new Error('Error al añadir tarea');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Error al añadir la tarea.');
+                }
+            });
+
+            /**
+             * Manejador del botón para ver tareas activas/archivadas.
+             */
+            toggleBtn.addEventListener('click', () => {
+                showArchived = !showArchived;
+                renderTodos();
+            });
+
+            /**
+ * Wrapper genérico para peticiones PUT (Actualizar).
+ */
+            async function apiUpdate(id, body) {
+                try {
+                    const response = await fetch(`${API_URL}/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                    if (response.ok) {
+                        await fetchTodos();
+                    } else {
+                        throw new Error('Error al actualizar');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Error al actualizar la tarea.');
+                }
+            }
+
+            /**
+             * Wrapper genérico para peticiones DELETE (Eliminar).
+             */
+            async function apiDelete(id) {
+                try {
+                    const response = await fetch(`${API_URL}/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        await fetchTodos();
+                    } else {
+                        throw new Error('Error al eliminar');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Error al eliminar la tarea.');
+                }
+            }
+
+            fetchTodos();
+        });
+    </script>
+</body>
+</html>

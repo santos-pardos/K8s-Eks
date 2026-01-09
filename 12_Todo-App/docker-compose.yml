@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  
+  # proxy: Nginx (Reverse Proxy + Servidor de estáticos)
+  proxy:
+    build:
+      context: .
+      dockerfile: ./proxy/Dockerfile # Ubicación del Dockerfile del proxy
+    container_name: todo-proxy
+    ports:
+      # Expone el puerto 80 del contenedor en el 8080 del host.
+      - "8080:80"
+    networks:
+      # Conectado solo a la red frontend (sin acceso a la BD).
+      - frontend-net
+    depends_on:
+      - backend # Depende de que el backend esté iniciado.
+
+  # backend: API Node.js/Express
+  backend:
+    build: ./backend # Usa el Dockerfile en el directorio 'backend'
+    container_name: todo-backend
+    env_file: ./.env # Carga variables de entorno desde el archivo .env
+    networks:
+      # Conectado a ambas redes para actuar como intermediario.
+      - frontend-net
+      - database-net
+    depends_on:
+      db:
+        # Espera a que la BD reporte estar 'healthy' antes de iniciar.
+        condition: service_healthy
+
+  # db: Base de Datos PostgreSQL 15
+  db:
+    image: postgres:15-alpine
+    container_name: todo-db
+    env_file: ./.env
+    networks:
+      # Aislado en la red de base de datos.
+      - database-net
+    volumes:
+      # Script de inicialización (montaje bind).
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # Volumen montado para persistencia de datos.
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      # Comando para verificar que la BD está lista para aceptar conexiones.
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+# Definición de volúmenes nombrados
+volumes:
+  postgres_data:
+    name: todo-postgres-data # Nombre explícito para gestión.
+
+# Definición de redes personalizadas (segmentación)
+networks:
+  # Red para comunicación proxy <-> backend
+  frontend-net:
+    driver: bridge
+  # Red para comunicación backend <-> db
+  database-net:
+    driver: bridge

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: fintech-apps
+spec:
+  # NodePort permite acceder desde fuera del clúster usando la IP del nodo
+  type: NodePort
+  selector:
+    app: proxy
+  ports:
+    - protocol: TCP
+      port: 80       # Puerto interno del servicio
+      targetPort: 80 # Puerto del contenedor Nginx
+      # CAMBIO: Usamos 30090 para evitar el conflicto del puerto 30080
+      nodePort: 30090 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: fintech-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+        - name: proxy
+          # Tu imagen de Docker Hub
+          image: jolrojasbodev/todo-proxy:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
