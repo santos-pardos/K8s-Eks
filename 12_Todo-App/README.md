@@ -1,7 +1,7 @@
 # todo-app-docker-compose
 Actividad 2 - Contenedores
 
-# DockerIgnore  .dockerignore
+## DockerIgnore  .dockerignore
 ```
 # Excluye archivos innecesarios del contexto de build de Docker.
 node_modules
@@ -14,7 +14,7 @@ node_modules
 ```
 
 
-# Enviroments  .env
+## Enviroments  .env
 ```
 # Credenciales de PostgreSQL
 # Estas variables son leídas por el contenedor 'db' y 'backend'.
