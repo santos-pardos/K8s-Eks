@@ -92,7 +92,7 @@ chmod +x ~/.docker/cli-plugins/docker-buildx
 docker buildx version
 ```
 ```
-docker-compose build --no-cache && docker compose up
+docker-compose build --no-cache && docker-compose up
 ```
 ## Install Helm
 ```
