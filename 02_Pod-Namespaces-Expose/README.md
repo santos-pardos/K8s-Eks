@@ -86,6 +86,7 @@ NAME      READY     STATUS    RESTARTS   AGE
 mypod     1/1       Running   0          10s
 
  kubectl exec -it  mypod --namespace=test bash  
+ kubectl exec -it mivolumepod -n paradigma -c nginx -- /bin/bash
  
 root@mypod:/usr/share/nginx# ls
 
