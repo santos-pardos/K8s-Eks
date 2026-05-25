@@ -34,3 +34,7 @@ kubectl run cloudbeaver --image=dbeaver/cloudbeaver:latest -n default --port=897
 ```
 kubectl port-forward pod/cloudbeaver 8080:8978 -n default --address 0.0.0.0
 ```
+```
+mssql-service.default.svc.cluster.local
+mssql-service
+```
