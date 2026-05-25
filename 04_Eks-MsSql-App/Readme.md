@@ -9,3 +9,9 @@ kubectl create secret generic mssql-secret --from-literal=SA_PASSWORD="example_1
 ## Secrets
 echo -n "example_123" | base64                                                                                                                           
 ZXhhbXBsZV8xMjM=
+
+## Netshoot
+kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
+
+## DBBeaver
+docker run -d --name cloudbeaver --rm -ti -p 80:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
