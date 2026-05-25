@@ -11,6 +11,10 @@ echo -n "example_123" | base64
 ZXhhbXBsZV8xMjM=
 
 ## Netshoot
+kubectl get pods -l app=mssql -o wide
+kubectl run netshoot --rm -i --tty --image nicolaka/netshoot -- /bin/bash
+nc -zv 10.244.1.45 1433
+
 kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 
 ## DBBeaver
