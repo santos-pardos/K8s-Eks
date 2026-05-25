@@ -28,4 +28,9 @@ kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 ```
 
 ## DBBeaver
-docker run -d --name cloudbeaver --rm -ti -p 80:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
+```
+kubectl run cloudbeaver --image=dbeaver/cloudbeaver:latest -n default --port=8978 --expose --overrides='{"spec": {"ports": [{"port": 80, "targetPort": 8978}]}}'
+```
+```
+kubectl port-forward pod/cloudbeaver 8080:8978 -n default --address 0.0.0.0
+```
