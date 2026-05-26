@@ -243,7 +243,12 @@ docker build --pull --no-cache --tag myimage:version .
 ```
 docker run -d --name cloudbeaver --rm -ti -p 80:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
 ```
-
+## K
+```
+nano ~/.bashrc
+alias k='kubectl'
+source ~/.bashrc
+```
 ## Microservices Example
 ```
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
