@@ -109,3 +109,36 @@ Por qué ahora sí va a funcionar?
 Antes, cuando ejecutabas wget http://mi-web, el contenedor de BusyBox le preguntaba al servidor DNS interno de Kubernetes: "¿Quién es mi-web?", y el DNS respondía: "No tengo ni idea" (bad address).
 
 Ahora, gracias al comando k expose, el DNS de Kubernetes ya conoce la dirección de mi-web y redirigirá todo ese bucle infinito de peticiones directamente hacia tu Pod de Apache. Si abres otra pestaña y ejecutas k get hpa -w, verás cómo en un par de minutos la CPU empieza a subir y las réplicas se multiplican.
+
+¿Qué hace exactamente el comando k expose?
+
+El comando k expose es el equivalente a poner una centralita telefónica con un número fijo en la recepción del edificio.
+
+Cuando ejecutaste:
+Bash
+```
+k expose deployment mi-web --port=80 --target-port=80
+```
+Kubernetes hizo tres cosas de forma automática entre bambalinas:
+
+    Creó un objeto llamado "Service" (Servicio): Le asignó un nombre fijo e inmortal en el clúster: mi-web. Este nombre nunca va a cambiar.
+
+    Le dio una IP fija interna (ClusterIP): Una dirección que nunca cambia, pase lo que pase con los Pods.
+
+    Puso un cartel luminoso (Labels/Selectors): El servicio se queda vigilando el clúster buscando cualquier Pod que tenga la etiqueta app: web.
+
+El viaje de tu comando wget (Ahora sí)
+
+Cuando volviste a lanzar el generador de carga con wget http://mi-web, el flujo fue el siguiente:
+
+    Tu Pod de BusyBox llamó a http://mi-web.
+
+    El DNS de Kubernetes dijo: "¡Ah, sí! mi-web es la centralita (el Servicio) que está en la IP 10.100.0.5".
+
+    El Servicio recibió la avalancha de peticiones de tu ataque de estrés.
+
+    El Servicio miró su lista de Pods asociados y dijo: "Tengo que mandar este tráfico al Pod de Apache".
+
+Y aquí viene la magia con el HPA: Como el Servicio empezó a redirigir miles de peticiones al Pod de Apache, la CPU de ese Pod se disparó. El HPA lo vio, creó 4 Pods más, y el Servicio (automáticamente y en milisegundos) detectó los nuevos Pods y empezó a repartir el tráfico del wget entre los 5 Pods para que ninguno se cayera.
+
+En resumen: expose sirve para crear una puerta de acceso fija y darle un nombre oficial a tu aplicación para que otros Pods del clúster puedan hablar con ella.
