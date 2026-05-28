@@ -87,7 +87,7 @@ Verás cómo cambian los números en cuestión de un par de minutos:
 
 Si cortas el comando del generador de carga (Ctrl + C), verás que tras unos minutos de calma, el HPA volverá a bajar de forma segura las réplicas a 1. ¡Magia!
 
-## ERROR y SOLUCION
+## ERROR: wget: bad address 'mi-web'  y SOLUCION
 ---------------------------
 Paso 1: Crear el Servicio
 
