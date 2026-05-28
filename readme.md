@@ -6,7 +6,14 @@ mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/
 kubectl version --client
 ```
 ```
+nano ~/.bashrc
+alias k='kubectl'
+source ~/.bashrc
+```
+```
 aws eks update-kubeconfig --name demo-cluster --region us-east-1
+```
+```
 kubectl config get-contexts
 ```
 ```
@@ -18,6 +25,7 @@ kubectl get nodes
 ```
 kubectl get all 
 ```
+
 ## VSC Server
 ```
 https://vscode.dev/tunnel/vscode-demo-tunnel
@@ -243,12 +251,7 @@ docker build --pull --no-cache --tag myimage:version .
 ```
 docker run -d --name cloudbeaver --rm -ti -p 80:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
 ```
-## K
-```
-nano ~/.bashrc
-alias k='kubectl'
-source ~/.bashrc
-```
+
 ## Microservices Example
 ```
 https://unir-profesantos.s3.eu-west-1.amazonaws.com/EKS-Microservices.zip
