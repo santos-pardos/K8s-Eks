@@ -7,7 +7,11 @@ kubectl version --client
 ```
 ```
 nano ~/.bashrc
+```
+```
 alias k='kubectl'
+```
+```
 source ~/.bashrc
 ```
 ```
