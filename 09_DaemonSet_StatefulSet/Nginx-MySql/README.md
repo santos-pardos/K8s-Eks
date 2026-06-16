@@ -1,3 +1,18 @@
+## Kubectl
+```
+kubectl get pods -o wide
+```
+```
+kubectl get pods
+kubectl get pvc
+kubectl exec -it mysql-clase-0 -- sh
+kubectl exec -it  mysql-clase-0 bin/bash
+kubectl delete pod mysql-clase-0
+kubectl get pods -w
+kubectl exec -it mysql-clase-0 -- cat /var/lib/mysql/nota_clase.txt
+kubectl scale statefulset mysql-clase --replicas=2                          error porque no hay mas PV solo hay uno y asociado al primer pod
+```
+## Analaogía
 1. DaemonSet: "Uno en cada servidor, siempre"
 
 Un DaemonSet se asegura de que haya exactamente una copia de tu aplicación ejecutándose en todos los servidores (Nodos) de tu clúster de Kubernetes.
