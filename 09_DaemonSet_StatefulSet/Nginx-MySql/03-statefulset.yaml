@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-clase-service
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 3306
+    name: bd
+  clusterIP: None # Esto lo hace "Headless"
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-clase
+spec:
+  serviceName: "mysql-clase-service"
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "ClaveSegura123"
+        ports:
+        - containerPort: 3306
+          name: bd
+        volumeMounts:
+        - name: datos-mysql
+          mountPath: /var/lib/mysql # Donde MySQL guarda sus bases de datos
+  # La petición del disco
+  volumeClaimTemplates:
+  - metadata:
+      name: datos-mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "storage-clase-magico" # ¡Llama al StorageClass del paso 1!
+      resources:
+        requests:
+          storage: 5Gi # Igual o menor al tamaño que pusimos en el paso 2
