@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: mi-agente-daemonset
+  labels:
+    app: monitor
+spec:
+  selector:
+    matchLabels:
+      app: monitor
+  template:
+    metadata:
+      labels:
+        app: monitor
+    spec:
+      containers:
+      - name: nginx-agente
+        image: nginx:alpine
+        # Le ponemos pocos recursos para que no sature los nodos de tu clase
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
