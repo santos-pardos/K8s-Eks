@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: storage-clase-magico
+provisioner: kubernetes.io/no-provisioner # Indica que el disco lo creamos a mano
+volumeBindingMode: Immediate              # Enlaza el disco en cuanto lo vea
