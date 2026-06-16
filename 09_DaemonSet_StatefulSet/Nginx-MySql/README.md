@@ -3,6 +3,9 @@
 kubectl get pods -o wide
 ```
 ```
+kubectl apply -f 01-storageclass.yaml -f 02-pv-hostpath.yaml -f 03-statefulset.yaml
+```
+```
 kubectl get pods
 kubectl get pvc
 kubectl exec -it mysql-clase-0 -- sh
