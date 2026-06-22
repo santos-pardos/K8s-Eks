@@ -110,7 +110,6 @@ kind: Deployment
 metadata:
   name: mi-servidor-web
 spec:
-  # Helm leerá el "2" del values.yaml
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -122,10 +121,28 @@ spec:
     spec:
       containers:
       - name: nginx
-        # Helm construirá: "nginx:1.25.0"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
-        - containerPort: 80
+        - name: http
+          containerPort: 80
+          protocol: TCP
+```
+
+```
+# templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servidor-web
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: web
 ```
 Cómo se usa (Comandos básicos)
 
