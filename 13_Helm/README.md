@@ -21,18 +21,19 @@ Cuando creas un Chart (usando el comando helm create mi-sitio), Helm genera una 
 
 Aquí defines los valores por defecto de tu aplicación. Es lo único que un usuario normal necesita tocar.
 YAML
-
+```
 # values.yaml
 replicaCount: 2
 image:
   repository: nginx
   tag: "1.25.0"
+```
 
 2. La plantilla (templates/deployment.yaml)
 
 Aquí es donde ocurre la magia. Es un archivo YAML de Kubernetes normal, pero con "huecos" (sintaxis de plantillas de Go) que Helm rellenará con lo que pusiste en el values.yaml.
 YAML
-
+```
 # templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -55,7 +56,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 80
-
+```
 Cómo se usa (Comandos básicos)
 
 Una vez que tienes tu Chart listo, interactuar con tu clúster es mucho más limpio que usar kubectl apply -f para múltiples archivos.
@@ -63,15 +64,15 @@ Una vez que tienes tu Chart listo, interactuar con tu clúster es mucho más lim
 1. Instalar la aplicación:
 Esto toma tu Chart, inyecta los valores y lo manda a Kubernetes bajo el nombre "mi-primer-release".
 Bash
-
+```
 helm install mi-primer-release ./mi-sitio
-
+```
 2. Actualizar la aplicación (Upgrade):
 Si decides cambiar el values.yaml (por ejemplo, subir a 5 réplicas o cambiar la versión de Nginx), solo ejecutas:
 Bash
-
+```
 helm upgrade mi-primer-release ./mi-sitio
-
+```
 Nota: Helm guarda el historial, por lo que si la actualización falla, puedes usar helm rollback para volver a la versión anterior al instante.
 
 3. Desinstalar todo:
