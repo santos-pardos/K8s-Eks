@@ -1,4 +1,4 @@
-⚓ ¿Qué es Helm brevemente?
+¿Qué es Helm brevemente?
 
 Imagina que Kubernetes es el sistema operativo de tu clúster. Helm es el gestor de paquetes de Kubernetes, es decir, el equivalente a apt en Ubuntu, yum en CentOS, npm para Node.js o pip para Python.
 
@@ -12,7 +12,7 @@ Sus 3 conceptos clave son:
 
     Release: Una instancia de un Chart ejecutándose en tu clúster. Puedes instalar el mismo Chart varias veces con diferentes nombres y configuraciones (cada uno es un Release distinto).
 
-🛠️ Ejemplo Sencillo: Empaquetando un Nginx
+Ejemplo Sencillo: Empaquetando un Nginx
 
 Supongamos que quieres crear un paquete básico para desplegar servidores web Nginx.
 
@@ -56,7 +56,7 @@ spec:
         ports:
         - containerPort: 80
 
-💻 Cómo se usa (Comandos básicos)
+Cómo se usa (Comandos básicos)
 
 Una vez que tienes tu Chart listo, interactuar con tu clúster es mucho más limpio que usar kubectl apply -f para múltiples archivos.
 
