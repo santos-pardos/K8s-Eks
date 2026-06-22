@@ -69,6 +69,6 @@ Verás que Grafana ya viene con docenas de paneles preconfigurados si vas a la s
 Si en algún momento necesitas hacer consultas directas (PromQL) en la interfaz cruda de Prometheus, puedes hacer otro port-forward en una terminal nueva:
 Bash
 ```
-kubectl port-forward -n monitoring svc/kube-prom-kube-prome-prometheus 9090:9090
+kubectl port-forward --address=0.0.0.0 -n monitoring svc/kube-prom-kube-prometheus-prometheus 9090:9090
 ```
 Y acceder en tu navegador a: http://localhost:9090
