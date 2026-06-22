@@ -72,3 +72,25 @@ Bash
 kubectl port-forward --address=0.0.0.0 -n monitoring svc/kube-prom-kube-prometheus-prometheus 9090:9090
 ```
 Y acceder en tu navegador a: http://localhost:9090
+
+
+Pasos para importar un Dashboard en Grafana
+
+1. Entrar a la sección de importación:
+En el menú izquierdo de Grafana, haz clic en el icono de Dashboards (los cuatro cuadritos) y, en la esquina superior derecha, haz clic en el botón New -> Import.
+
+2. Poner el ID del Dashboard:
+Grafana tiene una web oficial (grafana.com/dashboards) con miles de paneles listos para usar. En la casilla que dice "Import via grafana.com", escribe el número 3119 (o el 15759, que es otro muy moderno).
+Haz clic en el botón Load (Cargar).
+
+3. Configurar el origen de los datos (Data Source):
+Te aparecerá una pantalla con las opciones del Dashboard.
+
+    Puedes dejar el nombre tal como está.
+
+    En la parte inferior, verás un campo desplegable llamado Prometheus (o prometheus data sources). Haz clic ahí y selecciona la opción Prometheus (es el origen de datos que Helm ya configuró por ti).
+
+4. Importar y visualizar:
+Haz clic en el botón verde Import.
+
+¡Y listo! Automáticamente serás redirigido a tu nuevo panel. Empezarás a ver gráficas en tiempo real mostrando la CPU, Memoria, uso de red y el estado de todos los Nodos y Pods de tu clúster de AWS EKS.
