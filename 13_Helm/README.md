@@ -22,11 +22,81 @@ Cuando creas un Chart (usando el comando helm create mi-sitio), Helm genera una 
 Aquí defines los valores por defecto de tu aplicación. Es lo único que un usuario normal necesita tocar.
 YAML
 ```
-# values.yaml
+# Número de Pods
 replicaCount: 2
+
+# Configuración de imagen
 image:
   repository: nginx
+  pullPolicy: IfNotPresent
   tag: "1.25.0"
+
+# Variables básicas
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Cuenta de servicio
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Etiquetas y seguridad
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+
+# Servicio de red (ClusterIP para AWS Academy)
+service:
+  type: ClusterIP
+  port: 80
+
+# Ingress (Apagado)
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: mi-sitio.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+# Gateway API / HTTP Route (Apagado)
+httpRoute:
+  enabled: false
+
+# Pruebas de salud del contenedor
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+# Recursos (Vacíos)
+resources: {}
+
+# Autoescalado (Apagado)
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+# Volúmenes (Vacíos)
+volumes: []
+volumeMounts: []
+
+# Configuraciones de nodos (Vacías)
+nodeSelector: {}
+tolerations: []
+affinity: {}
 ```
 
 2. La plantilla (templates/deployment.yaml)
