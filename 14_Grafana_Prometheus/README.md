@@ -53,7 +53,7 @@ Como los servicios están dentro de tu clúster de EKS en AWS, no están expuest
 Ejecuta:
 Bash
 ```
-kubectl port-forward -n monitoring svc/kube-prom-grafana 8080:80
+kubectl port-forward --address=0.0.0.0 -n monitoring svc/kube-prom-grafana 8080:80
 ```
 ¡Listo! Ahora sigue estos pasos:
 
