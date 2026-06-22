@@ -155,6 +155,9 @@ helm list -A
 helm upgrade mi-primer-release ./mi-sitio --set service.type=LoadBalancer
 ```
 ```
+kubectl port-forward --address=0.0.0.0 svc/mi-primer-release-mi-sitio 8080:80
+```
+```
 kubectl port-forward --address 0.0.0.0 pod/mi-servidor-web-787d464d56-822q8  9000:80
 ```
 ```
