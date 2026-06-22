@@ -169,6 +169,9 @@ Bash
 helm list -A
 ```
 ```
+helm upgrade mi-primer-release ./mi-sitio
+```
+```
 helm upgrade mi-primer-release ./mi-sitio --set service.type=LoadBalancer
 ```
 ```
