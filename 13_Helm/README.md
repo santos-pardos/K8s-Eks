@@ -148,5 +148,15 @@ Nota: Helm guarda el historial, por lo que si la actualización falla, puedes us
 3. Desinstalar todo:
 Borra de golpe el Deployment, el Service y todo lo asociado a ese paquete, dejando el clúster limpio.
 Bash
-
+```
+helm list -A
+```
+```
+helm upgrade mi-primer-release ./mi-sitio --set service.type=LoadBalancer
+```
+```
+kubectl port-forward --address 0.0.0.0 pod/mi-servidor-web-787d464d56-822q8  9000:80
+```
+```
 helm uninstall mi-primer-release
+```
