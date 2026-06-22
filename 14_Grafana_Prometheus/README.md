@@ -94,3 +94,10 @@ Te aparecerá una pantalla con las opciones del Dashboard.
 Haz clic en el botón verde Import.
 
 ¡Y listo! Automáticamente serás redirigido a tu nuevo panel. Empezarás a ver gráficas en tiempo real mostrando la CPU, Memoria, uso de red y el estado de todos los Nodos y Pods de tu clúster de AWS EKS.
+
+```
+helm uninstall kube-prom -n monitoring
+```
+```
+kubectl delete namespace monitoring
+```
