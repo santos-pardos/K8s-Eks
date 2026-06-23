@@ -57,8 +57,10 @@ kubectl port-forward --address=0.0.0.0 -n monitoring svc/kube-prom-grafana 8080:
 ```
 ¡Listo! Ahora sigue estos pasos:
 
-    Abre tu navegador web y ve a: http://public-IP:8080
-
+    Abre tu navegador web y ve a: 
+    ```
+    http://public-IP:8080
+    ```
     Usuario: admin
 
     Contraseña: La que obtuviste en el Paso 3.
