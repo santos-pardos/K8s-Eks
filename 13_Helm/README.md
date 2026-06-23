@@ -16,7 +16,11 @@ Ejemplo Sencillo: Empaquetando un Nginx
 
 Supongamos que quieres crear un paquete básico para desplegar servidores web Nginx.
 
-Cuando creas un Chart (usando el comando helm create mi-sitio), Helm genera una estructura de carpetas. Nos centraremos en los dos archivos más importantes para un novato:
+Cuando creas un Chart usando el comando 
+```
+helm create mi-sitio
+```
+Helm genera una estructura de carpetas. Nos centraremos en los dos archivos más importantes para un novato:
 1. El archivo de variables (values.yaml)
 
 Aquí defines los valores por defecto de tu aplicación. Es lo único que un usuario normal necesita tocar.
