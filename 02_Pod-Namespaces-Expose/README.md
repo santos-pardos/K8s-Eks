@@ -132,3 +132,20 @@ kubectl get pods -o wide
 kubectl get all -o wide
 
 http:ipdondeestaelnodo:puertoefimero
+
+
+kubectl create ns paradigma
+
+kubectl apply -f 1pod2conatiners.yaml
+
+kubectl get all -n paradigma
+
+kubectl get pod mivolumepod --namespace=paradigma
+
+kubectl exec -it mivolumepod --namespace=paradigma --container=nginx -- /bin/sh
+
+kubectl exec -it mivolumepod --namespace=paradigma --container=ubuntu -- /bin/bash
+
+
+
+
