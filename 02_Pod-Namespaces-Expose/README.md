@@ -110,8 +110,10 @@ kubectl apply -f https://raw.githubusercontent.com/LukeMwila/setting-up-eks-clus
 kubectl get pods -o wide --namespace=express-nodejs
 
 kubectl port-forward express-test 8080:8080 --namespace=express-nodejs
+kubectl port-forward express-test 8080:8080 --namespace=express-nodejs --address 0.0.0.0
 
 http://localhost:8080/test
+
 
 kubectl run -it utils --image=arunvelsriram/utils -- sh
 
