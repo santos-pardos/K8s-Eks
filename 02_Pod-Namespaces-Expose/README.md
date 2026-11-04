@@ -134,9 +134,19 @@ kubectl get all -o wide
 http:ipdondeestaelnodo:puertoefimero
 
 
+kubectl create ns demo
+
+kubectl apply -f 1pod1namespace.yaml
+
+kubectl get all -n demo
+
+kubectl exec -it myweb --namespace=demo  -- /bin/sh
+
+
+
 kubectl create ns paradigma
 
-kubectl apply -f 1pod2conatiners.yaml
+kubectl apply -f 1pod2containers.yaml
 
 kubectl get all -n paradigma
 
