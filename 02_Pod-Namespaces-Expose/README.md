@@ -142,6 +142,8 @@ kubectl get all -n demo
 
 kubectl exec -it myweb --namespace=demo  -- /bin/sh
 
+kubectl port-forward myweb 8080:80 --namespace=demo --address 0.0.0.0
+
 
 
 kubectl create ns paradigma
