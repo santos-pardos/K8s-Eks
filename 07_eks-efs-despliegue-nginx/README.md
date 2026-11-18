@@ -1,6 +1,5 @@
 # Práctica EKS + EFS
 
-EFS: fs-0e85dde7278fc24ac, región us-east-1. El PV monta la raíz del sistema de archivos; usa un EFS de pruebas o revisa su contenido antes de escribir. El PVC y el Deployment se crean en el namespace activo. El PV es global al clúster; los nombres deben estar libres. Los 5 Gi son una capacidad declarada en Kubernetes, no una cuota de EFS.
 
 ## Requisitos
 
