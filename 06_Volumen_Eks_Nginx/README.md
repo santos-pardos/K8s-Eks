@@ -52,7 +52,7 @@ kubectl exec "$POD_EMPTY" -- cat /usr/share/nginx/html/index.html
 Este comando escribe o sobrescribe `index.html` en el volumen de la práctica. Accede a la web:
 
 ```bash
-kubectl port-forward deployment/nginx-emptydir 8080:80
+kubectl port-forward deployment/nginx-emptydir 8080:80 --address 0.0.0.0
 ```
 
 Abre **http://localhost:8080** en el navegador del equipo donde se ejecuta `kubectl`. Si lo ejecutas en una máquina remota, `localhost` se refiere a esa máquina; puedes usar `curl http://localhost:8080` allí. Detén el acceso con `Ctrl+C`.
