@@ -23,7 +23,7 @@ To access the Kubernetes Dashboard UI, complete the following steps:
 Route all requests from the Amazon EC2 instance's local port to the Kubernetes Dashboard service port. Run the following command to turn on port forwarding:
 ```
 ```
-kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8080:443 --address Amazon_EC2_Private_IP
+kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8080:443 --address 0.0.0.0
 ```
 ```
 Note: Replace the Amazon_EC2_Private_IP with your Amazon EC2 instance's private IP address.
@@ -32,7 +32,7 @@ When prompted, enter a token or kubeconfig file.
 To get a bearer token for authentication on the Kubernetes Dashboard login page, run the following command from your local computer terminal:
 ```
 ```
-aws eks get-token --cluster-name ClusterName --region Region | jq -r '.status.token'
+aws eks get-token --cluster-name demo-cluster --region us-east-1 | jq -r '.status.token'
 ```
 ```
 Note: Replace the ClusterName and Region with your cluster name and AWS Region.
