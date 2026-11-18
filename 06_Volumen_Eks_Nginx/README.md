@@ -99,7 +99,7 @@ kubectl exec "$POD_HOST" -- cat /usr/share/nginx/html/index.html
 ```
 
 ```bash
-kubectl port-forward deployment/nginx-hostpath 8081:80
+kubectl port-forward deployment/nginx-hostpath 8081:80 --address 0.0.0.0
 ```
 
 Abre **http://localhost:8081** en el equipo que ejecuta `kubectl`; si es remoto, usa `curl http://localhost:8081` en esa máquina. Detén el acceso con `Ctrl+C`.
