@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: agente-nodo
+  namespace: lab-eks-sets
+spec:
+  selector:
+    matchLabels:
+      app: agente-nodo
+  template:
+    metadata:
+      labels:
+        app: agente-nodo
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: agente
+          image: busybox:1.37.0
+          env:
+            - name: NODO
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              while true; do
+                echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') | nodo=$NODO | agente activo"
+                sleep 10
+              done

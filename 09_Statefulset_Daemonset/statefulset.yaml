@@ -1,0 +1,69 @@
+# Sustituye fs-REEMPLAZAR por el ID de tu sistema de archivos EFS.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: lab-eks-sets-efs
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: "fs-REEMPLAZAR"
+  directoryPerms: "750"
+  basePath: "/lab-eks-sets"
+mountOptions:
+  - tls
+reclaimPolicy: Delete
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-efs-interna
+  namespace: lab-eks-sets
+spec:
+  clusterIP: None
+  selector:
+    app: web-efs
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-efs
+  namespace: lab-eks-sets
+spec:
+  serviceName: web-efs-interna
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-efs
+  template:
+    metadata:
+      labels:
+        app: web-efs
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: nginx
+          image: nginx:1.28-alpine
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 2
+          volumeMounts:
+            - name: datos
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: datos
+      spec:
+        storageClassName: lab-eks-sets-efs
+        accessModes: ["ReadWriteMany"]
+        resources:
+          requests:
+            storage: 1Gi
