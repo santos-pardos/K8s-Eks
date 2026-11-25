@@ -1,0 +1,89 @@
+# Aplicación de prácticas. Cada petición HTTP realiza un cálculo y devuelve el nombre del pod.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-cpu
+  namespace: lab-hpa
+spec:
+  # El HPA gestiona el número de réplicas.
+  selector:
+    matchLabels:
+      app: web-cpu
+  template:
+    metadata:
+      labels:
+        app: web-cpu
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: web
+          image: python:3.13-alpine
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 32Mi
+            limits:
+              cpu: 300m
+              memory: 96Mi
+          readinessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 3
+          command: ["python", "-c"]
+          args:
+            - |
+              from http.server import BaseHTTPRequestHandler, HTTPServer
+              from socket import gethostname
+
+              class Web(BaseHTTPRequestHandler):
+                  def do_GET(self):
+                      total = sum(n * n for n in range(400_000))
+                      self.send_response(200)
+                      self.send_header("Content-Type", "text/plain; charset=utf-8")
+                      self.end_headers()
+                      self.wfile.write(f"Pod: {gethostname()} | Resultado: {total}\n".encode())
+
+              HTTPServer(("0.0.0.0", 8080), Web).serve_forever()
+---
+# El servicio dirige las peticiones a los pods listos con la etiqueta app: web-cpu.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-cpu
+  namespace: lab-hpa
+spec:
+  type: ClusterIP
+  selector:
+    app: web-cpu
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+# El HPA modifica las réplicas del Deployment según el uso medio de CPU.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-cpu
+  namespace: lab-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-cpu
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60
